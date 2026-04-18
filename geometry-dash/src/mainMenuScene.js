@@ -11,6 +11,9 @@ export class MainMenu extends Phaser.Scene {
 
   create() {
     let domElement = this.add.dom(400, 300).createFromCache("mainmenu");
+    domElement.node.style.width = "800px";
+    domElement.node.style.height = "600px";
+    domElement.updateSize();
     domElement.addListener("click");
     domElement.on(
       "click",
@@ -22,6 +25,4 @@ export class MainMenu extends Phaser.Scene {
       this,
     );
   }
-
-  update() {}
 }

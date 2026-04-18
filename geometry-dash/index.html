@@ -4,11 +4,153 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geometry Dash Clone</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <style>
-      body { margin: 0; padding: 0; background-color: #222; overflow: hidden; }
-      #game-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        overflow: hidden;
+      }
+      #game-container {
+        width: 100%;
+        height: 100vh;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .menu-container {
+        width: 800px;
+        height: 600px;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        position: relative;
+      }
+      .menu-container::before {
+        content: "";
+        position: absolute;
+        top: -1000px;
+        left: -1000px;
+        right: -1000px;
+        bottom: -1000px;
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 107, 107, 0.1) 0%,
+          transparent 50%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }
+      .menu-card {
+        background: rgba(20, 20, 20, 0.85) !important;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 107, 107, 0.5) !important;
+        border-radius: 25px;
+        animation: slideDown 0.8s ease-out;
+      }
+      .menu-title {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        font-weight: 900;
+        letter-spacing: 3px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e72);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        animation: float 3s ease-in-out infinite;
+        margin-bottom: 10px !important;
+      }
+      .menu-subtitle {
+        font-size: clamp(0.9rem, 3vw, 1.2rem);
+        color: #aaa;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+      }
+      .play-btn {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a6f) !important;
+        border: none !important;
+        padding: clamp(10px, 3vw, 15px) clamp(30px, 8vw, 50px) !important;
+        font-size: clamp(1rem, 4vw, 1.3rem) !important;
+        font-weight: 800 !important;
+        border-radius: 50px !important;
+        color: white !important;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
+      }
+      .play-btn:hover {
+        transform: scale(1.1) translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.7) !important;
+        background: linear-gradient(45deg, #ff8e72, #ff6b6b) !important;
+      }
+      .play-btn:active {
+        transform: scale(0.98) translateY(-1px);
+      }
+      .controls-info {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 107, 107, 0.2);
+      }
+      .control-item {
+        text-align: center;
+        color: #888;
+        font-size: 0.95rem;
+      }
+      .control-item strong {
+        color: #ff6b6b;
+        font-size: 1.2rem;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .geometric-shapes {
+        position: absolute;
+        pointer-events: none;
+      }
+      .shape-circle {
+        width: 100px;
+        height: 100px;
+        border: 2px solid rgba(255, 107, 107, 0.1);
+        border-radius: 50%;
+        position: absolute;
+      }
+      .shape-square {
+        width: 80px;
+        height: 80px;
+        border: 2px solid rgba(102, 126, 234, 0.1);
+        position: absolute;
+        transform: rotate(45deg);
+      }
     </style>
   </head>
   <body>

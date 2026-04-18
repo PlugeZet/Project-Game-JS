@@ -18,10 +18,9 @@ const config = {
         debug: true,
       },
     },
-    // scene: [GameScene, GameOver],
     scene: [MainMenu, GameScene, GameOver],
+    // scene: [GameScene, GameOver],
     autoFocus: true,
-
     parent: "game-container",
     dom: {
       createContainer: true,
